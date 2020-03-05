@@ -1,2 +1,2 @@
 # CI-with-Jenkins-in-GCP-Demo
-Test CI
+Editing this file to check the build trigger on the commit.
