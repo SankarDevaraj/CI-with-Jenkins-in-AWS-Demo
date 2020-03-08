@@ -2,9 +2,19 @@ pipeline {
     agent any
 
     stages {
-       stage('SonarQube analysis 1') {
+        stage('Build') {
             steps {
-                sh 'mvn clean package sonar:sonar'
+                sh 'mvn package'
+            }
+        }
+        stage('Scan') {
+	        environment {
+        	    scannerHome = tool 'sonar scanner'
+    	    }
+            steps {
+                withSonarQubeEnv('sonar') {
+            	     sh "${scannerHome}/bin/sonar-scanner"
+        	    }
             }
         }
     }
