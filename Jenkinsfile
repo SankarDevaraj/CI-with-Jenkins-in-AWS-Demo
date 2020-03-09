@@ -2,18 +2,13 @@ pipeline {
     agent any
 	
     stages {
-	stage('Build') {
-		steps {
-                	sh 'mvn package'
-            	}
-        }
-        stage('Scan') {
+        stage('Build and Scan') {
 		environment {
 			scannerHome = tool 'sonar scanner'
     	    	}
 		steps {
                 	withSonarQubeEnv('sonar') {
-            	     	sh 'mvn sonar:sonar'
+            	     	sh 'mvn clean package sonar:sonar'
        			}
             	}
     	}
